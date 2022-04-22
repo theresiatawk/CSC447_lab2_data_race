@@ -8,7 +8,7 @@ int length;
 int main()
 {
     int i;
-    length = 1000;
+    length = 10000;
     int count = 0;
     array = calloc(length, sizeof(int));
 
