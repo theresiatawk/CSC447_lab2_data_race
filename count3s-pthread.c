@@ -42,11 +42,12 @@ void* count3s_thread(void* id)
     {
         if (array[i] == 3)
         {
-            pthread_mutex_lock(&m);
-            count += 1;
-            pthread_mutex_unlock(&m);
+            private_count[(int)id].value++;
         }
     }
+    pthread_mutex_lock(&m);
+    count += private_count[(int)id].value;
+    pthread_mutex_unlock(&m);
     return 0;
 }
 
@@ -54,7 +55,7 @@ int main(int argc, char* argv[])
 {
     int i;
     length = 1048576; /*  2^20  */
-    t = 48; /*** be sure that t divides length!! ***/
+    t = 64; /*** be sure that t divides length!! ***/
 
     array = calloc(length, sizeof(int));
 
